@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 from dotenv import load_dotenv
+from django.conf import settings
 import os
 
 load_dotenv()
@@ -36,6 +37,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'oauth',
+    'projects',
 
     'django.contrib.admin',
     'django.contrib.auth',
