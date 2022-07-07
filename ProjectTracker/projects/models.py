@@ -18,6 +18,11 @@ class Session(models.Model):
         if self.start_date > self.end_date:
             raise ValidationError('Start date is after end date')
 
+class Milestone(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    date = models.DateTimeField()
+    description = models.CharField(max_length=200, validators=[MaxLengthValidator(200)])
+
     
      
 

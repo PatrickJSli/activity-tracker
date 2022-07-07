@@ -5,10 +5,9 @@ from django.utils import timezone
 import datetime
 
 
-from projects.models import Project, Session
+from projects.models import Project, Session, Milestone
 from oauth.models import User
 # Create your tests here.
-
 
 
 class ProjectTests(TestCase):
@@ -59,4 +58,31 @@ class SessionTests(TestCase):
         with self.assertRaises(ValidationError):
             session1.full_clean()
 
+    def test_delete_project_deletes_sessions(self):
+        session1 = Session.objects.create(project=self.project1, start_date=self.now, end_date=self.now + datetime.timedelta(days = 1))
+        session2 = Session.objects.create(project=self.project2, start_date=self.now, end_date=self.now + datetime.timedelta(days = 1))
+        self.project1.delete()
+        self.assertNotIn(self.project1, Project.objects.all())
+        self.assertNotIn(session1, Session.objects.all())
+        self.assertIn(session2, Session.objects.all())
+    
+class MilestoneTests(TestCase):
+    def setUp(self):
+        self.owner1 = User.objects.create(username="session_owner1", password="password")
+        self.owner2 = User.objects.create(username="session_owner2", password="password")
+        self.project1 = Project.objects.create(owner=self.owner1, title="Project1") 
+        self.project2 = Project.objects.create(owner=self.owner2, title="Project2")
+        self.now = datetime.datetime.now()
+    
+    def test_create_milestone(self):
+        milestone = Milestone.objects.create(project=self.project1, date=self.now, description="milestone")
+        self.assertIn(milestone, Milestone.objects.all())
+    
+    def test_delete_project_deletes_sessions(self):
+        milestone1 = Milestone.objects.create(project=self.project1, date=self.now, description="milestone1")
+        milestone2 = Milestone.objects.create(project=self.project2, date=self.now, description="milestone2")
+        self.project1.delete()
+        self.assertNotIn(self.project1, Project.objects.all())
+        self.assertNotIn(milestone1, Milestone.objects.all())
+        self.assertIn(milestone2, Milestone.objects.all())
         
