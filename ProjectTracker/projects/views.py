@@ -19,3 +19,7 @@ def dashboard(request):
 
     projects = Project.objects.filter(owner=request.user)
     return render(request, 'projects/dashboard.html', {'projects' : projects, 'formset' : formset})
+
+def project_detail(request, slug):
+    print(slug)
+    return render(request, 'projects/project_detail.html')

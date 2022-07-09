@@ -1,3 +1,4 @@
+from django.utils import timezone 
 from django.conf import settings
 from django.core.validators import ValidationError, MaxLengthValidator
 from django.forms import ModelForm
@@ -8,6 +9,8 @@ from oauth.models import User
 class Project(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=60, validators=[MaxLengthValidator(60)])
+    total_time = models.PositiveIntegerField(default=0)
+    last_worked_on = models.DateTimeField(default=timezone.now)
 
 class ProjectForm(ModelForm):
     class Meta:
