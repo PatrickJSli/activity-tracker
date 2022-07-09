@@ -7,5 +7,16 @@
     <body>
         {% include "projects/nav.html" %}
         <h1>Authenticated</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="title">Title</label><br>
+            <input type="text" id="title" name="title"><br>
+            <input type="submit" value="Submit">
+        </form>
+        <ul>
+        {% for project in projects %}
+            <li>{{project.title}}</li>
+        {% endfor %}
+        </ul>
     </body>
 </html> 
