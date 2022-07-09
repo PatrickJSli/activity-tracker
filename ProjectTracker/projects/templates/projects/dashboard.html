@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Projects</title>
+    </head>
+    <body>
+        {% include "projects/nav.html" %}
+        <h1>Authenticated</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="title">Title</label><br>
+            <input type="text" id="title" name="title"><br>
+            <input type="submit" value="Submit">
+        </form>
+        <table>
+            <tr>
+                <th>Project</th>
+                <th>Total Time Spent</th>
+                <th>Last Worked On</th>
+            </tr>
+            {% for project in projects %}
+            <tr>
+                <td><a href={% url 'projects:project_detail' project.title %}>{{project.title}}</a></td>
+                <td>{{project.total_time_}}</td>
+                <td>{{project.last_worked_on}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html> 
