@@ -21,8 +21,8 @@
             </tr>
             {% for project in projects %}
             <tr>
-                <td><a href={% url 'projects:project_detail' project.title %}>{{project.title}}</a></td>
-                <td>{{project.total_time_}}</td>
+                <td><a href={% url 'projects:project_detail' project.slug %}>{{project.title}}</a></td>
+                <td>{{project.total_time}}</td>
                 <td>{{project.last_worked_on}}</td>
             </tr>
             {% endfor %}
