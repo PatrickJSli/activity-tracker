@@ -13,7 +13,7 @@ from oauth.models import User
 class ProjectTests(TestCase):
     def test_create_project(self):
         owner = User.objects.create(username="owner", password="password") 
-        project = Project.objects.create(owner=owner, title="Test Project")
+        project = Project.objects.create(owner=owner, title="Test Project", slug="test-project")
 
         self.assertIn(project, Project.objects.filter(owner=owner))
     

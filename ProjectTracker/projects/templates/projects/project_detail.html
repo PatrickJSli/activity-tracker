@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Projects</title>
+        {% load static %}
+        <script src="{% static 'projects/project_detail.js' %}"></script> 
+    </head>
+    <body>
+        <h1>{{project.title}}</h1>
+        <p><span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span></p>
+        <button id="button-start">Start Session</button>
+        <button id="button-pause">Pause Session</button>
+        <button hidden id="button-reset">Reset</button>
+
+        <form id="session-form" method="POST">    
+            {% csrf_token %}
+            <input type="hidden" id="start_time" name="start_date"></input>
+            <input type="hidden" id="end_time" name="end_date"></input>
+            <input type="hidden" id="total_time" name="total_time"></input>
+            <input type="hidden" id="type" name="type" value="session"></input>
+        </form>
+
+        <form id="milestone-form" method="POST">    
+            {% csrf_token %}
+            <input type="text" id="milestone-description" name="description"></input>
+            <input type="hidden" id="milestone-date" name="date"></input>
+            <input type="hidden" id="milestone-type" name="type" value="milestone"></input>
+            <button type="button" id="milestone-submit" name="milestone-submit">Save Milestone</button>
+        </form>
+
+        <table>
+            <tr>
+                <th>Start</th>
+                <th>End</th>
+                <th>Time</th>
+            </tr>
+            {% for session in sessions %}
+            <tr>
+                <td>{{session.start_date}}</a></td>
+                <td>{{session.end_date}}</td>
+                <td>{{session.total_time}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+            </tr>
+            {% for milestone in milestones %}
+            <tr>
+                <td>{{milestone.date}}</a></td>
+                <td>{{milestone.description}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html> 
