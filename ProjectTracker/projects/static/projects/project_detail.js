@@ -7,7 +7,10 @@ window.onload = function () {
     var buttonStart = document.getElementById('button-start');
     var buttonPause = document.getElementById('button-pause');
     var buttonReset = document.getElementById('button-reset');
-    var session_form = document.getElementById('session_form');
+    var session_form = document.getElementById('session-form');
+    var milestoneForm = document.getElementById('milestone-form');
+    var milestoneDate = document.getElementById('milestone-date');
+    var milestoneSubmit = document.getElementById('milestone-submit');
     var total_time_input = document.getElementById('total_time');
     var start_time_input = document.getElementById('start_time');
     var end_time_input = document.getElementById('end_time');
@@ -53,6 +56,12 @@ window.onload = function () {
         displayHours.innerHTML = "00";
         displayMinutes.innerHTML = "00";
         displaySeconds.innerHTML = "00";
+    }
+
+    milestoneSubmit.onclick = function() {
+        var date = new Date();
+        milestoneDate.value = (new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
+        milestoneForm.submit();
     }
     
     function updateTimer () {

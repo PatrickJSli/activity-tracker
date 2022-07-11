@@ -38,6 +38,11 @@ class Milestone(models.Model):
     date = models.DateTimeField()
     description = models.CharField(max_length=200, validators=[MaxLengthValidator(200)])
 
+class MilestoneForm(ModelForm):
+    class Meta:
+        model = Milestone
+        fields = ['date', 'description',]
+
     
      
 
