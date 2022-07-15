@@ -2,20 +2,18 @@
 <html>
     <head>
         {% load static %}
+        <link rel="stylesheet" href="{% static 'projects/nav.css' %}">
+        <link rel="stylesheet" href="{% static 'projects/reset.css' %}">
     </head>
     <body>
-        <div class="header">
-            <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-                <a class="pure-menu-heading" href="/">Dashboard</a>
-
-                <ul class="pure-menu-list">
-                    {% if user.is_authenticated%}
-                        <li class="pure-menu-item pure-menu-selected"><a href="/accounts/logout" class="pure-menu-link">Logout</a></li>
-                    {% else %}
-                        <li class="pure-menu-item"><a href="/accounts/login" class="pure-menu-link">Login</a></li>
-                    {% endif %}
-                </ul>
-            </div>
+        <div class="nav-container">
+            <a href=/>Dashboard</a>
+            <div class="nav-spacer"></div>
+            {% if user.is_authenticated %}
+              <a href="/accounts/logout">Logout</a>
+            {% else %}
+              <a href="/accounts/login">Login</a>
+            {% endif %}
         </div>
     </body>
 </html>
