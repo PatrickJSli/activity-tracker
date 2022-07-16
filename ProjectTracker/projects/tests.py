@@ -1,5 +1,6 @@
 from django.db.utils import IntegrityError
 from django.core.validators import ValidationError
+from django.template import Context, Template
 from django.test import TestCase
 from django.utils import timezone
 import datetime
@@ -67,6 +68,7 @@ class SessionTests(TestCase):
         self.assertIn(session2, Session.objects.all())
     
 class MilestoneTests(TestCase):
+    
     def setUp(self):
         self.owner1 = User.objects.create(username="session_owner1", password="password")
         self.owner2 = User.objects.create(username="session_owner2", password="password")
@@ -85,4 +87,22 @@ class MilestoneTests(TestCase):
         self.assertNotIn(self.project1, Project.objects.all())
         self.assertNotIn(milestone1, Milestone.objects.all())
         self.assertIn(milestone2, Milestone.objects.all())
-        
+
+class FilterTests(TestCase):
+    def setUp(self):
+        self.filter = '{% load project_filters %}{{ total_seconds|seconds_to_time }}'
+    
+    def render_template(self, string, context=None):
+        context = context or {}
+        context = Context(context)
+        return Template(string).render(context)
+
+    def test_seconds_to_time_seconds(self):
+        rendered = self.render_template(self.filter, {'total_seconds': 30})
+        self.assertEqual(rendered, "00:00:30")
+
+    def test_seconds_to_time_seconds(self):
+        rendered = self.render_template(self.filter, {'total_seconds': 30})
+    
+
+

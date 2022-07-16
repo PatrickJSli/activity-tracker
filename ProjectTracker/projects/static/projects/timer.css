@@ -1,0 +1,16 @@
+.timer {
+    border: 1px solid black;
+    border-radius: 20px;
+    margin: auto;
+    width: 400px;
+}
+
+.timer-time {
+    font-size: 60px;
+    text-align: center;
+    width: 100%;
+}
+
+.timer button {
+    background-color: #fff;
+}

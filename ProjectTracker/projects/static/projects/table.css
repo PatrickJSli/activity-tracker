@@ -1,0 +1,30 @@
+table {
+    border: 1px solid #b6b4b4;
+    border-collapse: collapse;
+    margin: 0 5vw 0 5vw;
+    width: 90vw;
+}
+  
+td, th {
+    border: solid #b6b4b4;
+    border-width: 1px 0 1px 0;
+    font-size: large;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #616161;
+    color: white;
+}
+
+td {
+    color: #616161;
+}
+
+td a{
+    color: #006bd8;
+    font-weight: bold;
+    text-decoration: none;
+    
+}

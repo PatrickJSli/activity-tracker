@@ -71,3 +71,7 @@ select {
     scroll-behavior: auto !important;
   }
 }
+
+* {
+  font-family: 'Open Sans', sans-serif;
+}

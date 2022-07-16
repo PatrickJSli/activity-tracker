@@ -3,28 +3,36 @@
     <head>
         <meta charset="utf-8">
         <title>Projects</title>
+        {% load static%}
+        {% load project_filters %}
+        <link rel="stylesheet" href="{% static 'projects/table.css' %}">
+        <link rel="stylesheet" href="{% static 'projects/button.css' %}">
     </head>
     <body>
         {% include "projects/nav.html" %}
-        <form method="post">
-            {% csrf_token %}
-            <label for="title">Title</label><br>
-            <input type="text" id="title" name="title"><br>
-            <input type="submit" value="Submit">
-        </form>
+        <button type="button" class="primary-button table-aligned">New Project</button>
         <table>
             <tr>
                 <th>Project</th>
-                <th>Total Time Spent</th>
+                <th>Time</th>
                 <th>Last Worked On</th>
             </tr>
             {% for project in projects %}
             <tr>
                 <td><a href={% url 'projects:project_detail' project.slug %}>{{project.title}}</a></td>
-                <td>{{project.total_time}}</td>
+                <td>{{project.total_time|seconds_to_time}}</td>
                 <td>{{project.last_worked_on}}</td>
             </tr>
             {% endfor %}
+            <tr>
+                <td>
+                    <form method="post"> 
+                        {% csrf_token %}
+                        <input type="text" id="title" name="title" placeholder="Project Name">
+                        <input type="submit" value="Submit">
+                    </form>
+                </td>
+            </tr>
         </table>
     </body>
 </html> 

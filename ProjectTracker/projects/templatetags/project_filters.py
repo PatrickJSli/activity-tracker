@@ -2,6 +2,7 @@ from django import template
 
 register = template.Library()
 
+@register.filter
 def seconds_to_time(total_seconds):
     hours = total_seconds // 3600
     minutes = total_seconds % 3600 // 60
