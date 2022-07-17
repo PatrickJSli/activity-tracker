@@ -1,0 +1,21 @@
+.timer {
+    border: 0px solid black;
+    border-radius: 20px;
+    margin: 15px auto;
+    width: 400px;
+}
+
+.timer-time {
+    font-size: 60px;
+    text-align: center;
+    width: 100%;
+}
+
+.timer-controls {
+    display: flex;
+    justify-content: center;
+}
+
+.timer-controls button {
+    margin: 0 5px;
+}

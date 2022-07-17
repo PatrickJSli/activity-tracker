@@ -4,14 +4,22 @@
         <meta charset="utf-8">
         <title>Projects</title>
         {% load static %}
+        {% load project_filters%}
         <script src="{% static 'projects/project_detail.js' %}"></script> 
+        <link rel="stylesheet" href="{% static 'projects/button.css' %}">
+        <link rel="stylesheet" href="{% static 'projects/table.css' %}">
+        <link rel="stylesheet" href="{% static 'projects/timer.css' %}">
     </head>
     <body>
-        <h1>{{project.title}}</h1>
-        <p><span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span></p>
-        <button id="button-start">Start Session</button>
-        <button id="button-pause">Pause Session</button>
-        <button hidden id="button-reset">Reset</button>
+        {% include "projects/nav.html" %}
+        <div class="timer">
+            <p class="timer-time"><span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span></p>
+            <div class="timer-controls">
+                <button class="primary-button" id="button-start">Start</button>
+                <button class="primary-button" id="button-end">End</button>
+                <button hidden id="button-reset">Reset</button>
+            </div>
+        </div>
 
         <form id="session-form" method="POST">    
             {% csrf_token %}
@@ -23,10 +31,10 @@
 
         <form id="milestone-form" method="POST">    
             {% csrf_token %}
-            <input type="text" id="milestone-description" name="description"></input>
+            <input type="hidden" id="milestone-description" name="description"></input>
             <input type="hidden" id="milestone-date" name="date"></input>
             <input type="hidden" id="milestone-type" name="type" value="milestone"></input>
-            <button type="button" id="milestone-submit" name="milestone-submit">Save Milestone</button>
+            <button hidden type="hidden" id="milestone-submit" name="milestone-submit">Save Milestone</button>
         </form>
 
         <table>
@@ -37,24 +45,24 @@
             </tr>
             {% for session in sessions %}
             <tr>
-                <td>{{session.start_date}}</a></td>
-                <td>{{session.end_date}}</td>
-                <td>{{session.total_time}}</td>
+                <td>{{session.start_date|date:'m-d-Y h:i a'}}</a></td>
+                <td>{{session.end_date|date:'m-d-Y h:i a'}}</td>
+                <td>{{session.total_time|seconds_to_time}}</td>
             </tr>
             {% endfor %}
         </table>
 
-        <table>
+        {% comment %} <table>
             <tr>
                 <th>Date</th>
                 <th>Description</th>
             </tr>
             {% for milestone in milestones %}
             <tr>
-                <td>{{milestone.date}}</a></td>
+                <td>{{milestone.date|date:'m-d-Y h:i a'}}</a></td>
                 <td>{{milestone.description}}</td>
             </tr>
             {% endfor %}
-        </table>
+        </table> {% endcomment %}
     </body>
 </html> 

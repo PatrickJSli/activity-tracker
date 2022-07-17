@@ -1,0 +1,17 @@
+.nav-container {
+    background-color: #006bd8;
+    border-bottom: 1px solid rgb(189, 189, 189);
+    display: flex;
+}
+
+.nav-spacer {
+    flex-grow: 1;
+}
+
+.nav-container a {
+    color: white;
+    font-weight: bold;
+    font-size: larger;
+    padding: .3em 1em .3em 1em;
+    text-decoration: none;
+}
