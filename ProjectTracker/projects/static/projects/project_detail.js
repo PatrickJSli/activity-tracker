@@ -5,7 +5,7 @@ window.onload = function () {
     var displayMinutes = document.getElementById("minutes")
     var displaySeconds = document.getElementById("seconds")
     var buttonStart = document.getElementById('button-start');
-    var buttonPause = document.getElementById('button-pause');
+    var buttonEnd = document.getElementById('button-end');
     var buttonReset = document.getElementById('button-reset');
     var session_form = document.getElementById('session-form');
     var milestoneForm = document.getElementById('milestone-form');
@@ -23,31 +23,33 @@ window.onload = function () {
         if (state == 0) {
             clearInterval(Interval);
             Interval = setInterval(updateTimer, 1000);
-            buttonStart.innerHTML = "End Session";
+            buttonStart.innerHTML = "Pause";
             state = 1;
             startDate = new Date();
         } else if (state == 1) {
             clearInterval(Interval);
-            buttonStart.innerHTML = "Save Session";
+            buttonStart.innerHTML = "Resume";
             state = 2;
         } else if (state == 2) {
-            endDate = new Date();
-            total_time_input.value = totalSeconds;
-            start_time_input.value = (new Date(startDate.getTime() - startDate.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
-            end_time_input.value = (new Date(endDate.getTime() - endDate.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
-            session_form.submit();
-
-            clearInterval(Interval);
-            totalSeconds = 0
-            displayHours.innerHTML = "00";
-            displayMinutes.innerHTML = "00";
-            displaySeconds.innerHTML = "00";
+            Interval = setInterval(updateTimer, 1000);
+            buttonStart.innerHTML = "Pause";
+            state = 1;
         }
 
     }
     
-    buttonPause.onclick = function() {
+    buttonEnd.onclick = function() {
+        endDate = new Date();
+        total_time_input.value = totalSeconds;
+        start_time_input.value = (new Date(startDate.getTime() - startDate.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
+        end_time_input.value = (new Date(endDate.getTime() - endDate.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);            
+        session_form.submit();
+
         clearInterval(Interval);
+        totalSeconds = 0
+        displayHours.innerHTML = "00";
+        displayMinutes.innerHTML = "00";
+        displaySeconds.innerHTML = "00";
     }
     
     buttonReset.onclick = function() {

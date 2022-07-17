@@ -1,5 +1,6 @@
+import re
 from time import time
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from slugify import slugify
 
@@ -34,6 +35,7 @@ def project_detail(request, slug):
             session = Session(project=project)
             formset = SessionForm(request.POST, instance=session)
             project.last_worked_on=request.POST['end_date']
+            project.total_time += int(request.POST['total_time'])
             if formset.is_valid():
                 formset.save()
                 project.save()
@@ -44,3 +46,8 @@ def project_detail(request, slug):
                 formset.save()
             
     return render(request, 'projects/project_detail.html', {'project' : project, 'sessions' : sessions, 'milestones' : milestones})
+
+
+def delete_project(request, slug):
+    Project.objects.filter(owner=request.user).get(slug=slug).delete()
+    return redirect("/");

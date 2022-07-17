@@ -13,11 +13,15 @@ class Project(models.Model):
     total_time = models.PositiveIntegerField(default=0)
     last_worked_on = models.DateTimeField(default=timezone.now)
 
+    def clean(self):
+        if (Project.objects.filter(owner=self.owner, title=self.title)):
+            raise ValidationError('Title must be unique')
+
 class ProjectForm(ModelForm):
     class Meta:
         model = Project
         fields = ['title',]
-
+    
 class Session(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     start_date = models.DateTimeField()

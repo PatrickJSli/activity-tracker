@@ -26,5 +26,91 @@ td a{
     color: #006bd8;
     font-weight: bold;
     text-decoration: none;
-    
+}
+
+.kebab {
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+table figure {
+    width: 6px;
+    height: 6px;
+    border-radius: 5px;
+    background: #616161;
+    margin: 1px 0;
+}
+
+.dropdown {
+    position: absolute;
+    top: 5px;
+    right: 100%;
+    transition: all 0.00s ease-out;
+    transform: scale(0);
+    transform-origin: 100% 0;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+    background-color: white;
+}
+
+.dropdown li {
+    display: block;
+    width: 100%;
+}
+
+.dropdown li a {
+    width: 100%;
+    padding: 5px;
+}
+  
+.dropdown li a:hover {
+    background: #ebebeb;
+}
+
+.dropdown:hover ul {
+    transform: scale(1);
+}
+  
+.dropdown.active {
+    transform: scale(1);
+    transition: all 0.0s cubic-bezier(0.5, 1.8, 0.9, 0.8);
+}
+
+ul.dropdown {
+    padding: 0;
+}
+
+.cross {
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    transform: translate(-50%, -50%) scale(0);
+    margin-top: -1px;
+    font-family: "Nunito", sans-serif;
+    color: white;
+    transition: all 0.05s cubic-bezier(0.72, 1.2, 0.71, 0.72);
+    font-size: 22px;
+    user-select: none;
+}
+  
+.cross.active {
+    transform: translate(-50%, -50%) scale(1);
+    transition: all 0.05s cubic-bezier(0.32, 2.04, 0.85, 0.54);
+}
+
+.middle {
+    transition: all 0.1s cubic-bezier(0.72, 1.2, 0.71, 0.72);
+    transform: scale(1);
+    position: relative;
+    box-shadow: 0 0.1px 0.1px 0 rgba(0, 0, 0, 0.16), 0 0.1px 0.3px 0 rgba(0, 0, 0, 0.12);
+    -webkit-filter: blur(0.1px);
+    filter: blur(0.1px);
+}
+  
+.middle.active {
+    transform: scale(4.5);
+    transition: all 0.25s cubic-bezier(0.32, 2.04, 0.85, 0.54);
+    box-shadow: 0 0.1px 0.1px 0 rgba(0, 0, 0, 0.16), 0 0.1px 0.3px 0 rgba(0, 0, 0, 0.12);
 }

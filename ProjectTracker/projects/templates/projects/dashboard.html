@@ -5,34 +5,63 @@
         <title>Projects</title>
         {% load static%}
         {% load project_filters %}
+        <link rel="stylesheet" href="{% static 'projects/dashboard.css' %}">
         <link rel="stylesheet" href="{% static 'projects/table.css' %}">
         <link rel="stylesheet" href="{% static 'projects/button.css' %}">
     </head>
     <body>
         {% include "projects/nav.html" %}
-        <button type="button" class="primary-button table-aligned">New Project</button>
+        <button type="button" class="primary-button table-aligned" id="new-project-button">New Project</button>
         <table>
             <tr>
                 <th>Project</th>
                 <th>Time</th>
-                <th>Last Worked On</th>
+                <th colspan=2>Last Worked On</th>
+            </tr>
+            <tr id="new-project-row" hidden>
+                <td colspan=4>
+                    <form method="post"> 
+                        {% csrf_token %}
+                        <input type="text" id="title" name="title" placeholder="Project Name">
+                        <input class="primary-button" type="submit" value="Submit">
+                    </form>
+                </td>
             </tr>
             {% for project in projects %}
             <tr>
                 <td><a href={% url 'projects:project_detail' project.slug %}>{{project.title}}</a></td>
                 <td>{{project.total_time|seconds_to_time}}</td>
                 <td>{{project.last_worked_on}}</td>
-            </tr>
-            {% endfor %}
-            <tr>
                 <td>
-                    <form method="post"> 
-                        {% csrf_token %}
-                        <input type="text" id="title" name="title" placeholder="Project Name">
-                        <input type="submit" value="Submit">
-                    </form>
+                    <div class="kebab" id="project-kebab">
+                        <figure></figure>
+                        <figure class="middle"></figure>
+                        <p class="cross">x</p>
+                        <figure></figure>
+                        <ul class="dropdown">
+                            <li><a href={% url 'projects:delete_project' project.slug %}>Delete</a></li>
+                        </ul>
+                    </div>
                 </td>
             </tr>
+            {% endfor %}
         </table>
+
+        <script>
+            document.getElementById("new-project-button").onclick = new_project;
+            function new_project() {
+                document.getElementById("new-project-row").hidden = false;
+                document.getElementById("title").focus();
+            }
+
+            const kebabs = document.getElementsByClassName("kebab");
+            for (let i = 0; i < kebabs.length; i++) {
+                kebabs[i].addEventListener('click', function() {
+                    kebabs[i].querySelector('.dropdown').classList.toggle('active');
+                    kebabs[i].querySelector('.cross').classList.toggle('active');
+                    kebabs[i].querySelector('.middle').classList.toggle('active');
+                })
+            }
+        </script>
     </body>
 </html> 
